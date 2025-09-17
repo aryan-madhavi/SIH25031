@@ -25,7 +25,8 @@ class AppbarWidget extends ConsumerWidget implements PreferredSizeWidget {
 
     
     return AppBar(
-      elevation: 5,
+      backgroundColor: Colors.transparent,
+      elevation: 2,
       //*title
       title: Text(
         StringConstants.CivicReporter,

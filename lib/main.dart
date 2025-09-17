@@ -1,7 +1,8 @@
 import 'package:civic_reporter/Core/Theme/dark_theme.dart';
 import 'package:civic_reporter/Core/Theme/light_theme.dart';
 import 'package:civic_reporter/Core/Theme/riverpod/theme_provider.dart';
-import 'package:civic_reporter/presentation/home/home_page.dart';
+import 'package:civic_reporter/presentation/IssueReportingPage/Screens/issue_reporting_screen.dart';
+import 'package:civic_reporter/presentation/home/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
           theme: lightThemeData,
           darkTheme: darkThemeData,
           debugShowCheckedModeBanner: false,
-          home: HomePage(),
+          home: IssueReportingScreen(),
           themeMode: themeMode,
         );
       },

@@ -9,7 +9,7 @@ class ColorConstants {
   static const blackColor = Color(0xFF1D2025);
   static const lightThemeborderColor = Color(0xFF6B7280);
   static const darkGreyColor = Color(0xFF6B7280);
-  static const lightBackgroundColor = Color(0xFFFFFFFF);
+  static const lightBackgroundColor = Color(0xFFededed);
   static const whiteColor = Color(0xFFFFFFFF);
   static const lightShadowColor = Color(0xffD7DADA);
 

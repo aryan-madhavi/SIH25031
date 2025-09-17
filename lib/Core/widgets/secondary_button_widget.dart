@@ -3,11 +3,11 @@ import 'package:civic_reporter/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/Core/services/responsive_service.dart';
 import 'package:flutter/material.dart';
 
-class CommonButtonWidget extends StatelessWidget {
+class SecondaryButtonWidget extends StatelessWidget {
   final String? buttonLabel;
   final IconData? buttonIcon;
   final VoidCallback buttonOnPress;
-  const CommonButtonWidget({
+  const SecondaryButtonWidget({
     super.key,
     this.buttonLabel,
     this.buttonIcon,
@@ -40,7 +40,7 @@ class CommonButtonWidget extends StatelessWidget {
               buttonLabel ?? '',
               style: TextStyle(
                 fontSize: ResponsiveService.fs(0.040),
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w500,
               ),
             ),
             SizedBox(width: ResponsiveService.w(0.025)),
