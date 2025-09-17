@@ -13,7 +13,24 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int page_no = 0;
+  int pageno = 0;
+
+  final List<String> _labels = const [
+    "Home",
+    "Report",
+    "Track",
+    "History",
+    "Profile",
+  ];
+
+  final List<Icon> _icons = const [
+    Icon(Icons.home),
+    Icon(Icons.report),
+    Icon(Icons.menu_book_sharp),
+    Icon(Icons.history),
+    Icon(Icons.person),
+  ];
+
   final List<Widget> _pages = const [
     HomePage(),
     IssueReportingScreen(),
@@ -25,43 +42,50 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[page_no],
+      body: _pages[pageno],
       bottomNavigationBar: NavigationBar(
-        selectedIndex: page_no,
+        selectedIndex: pageno,
         onDestinationSelected: (int pageIndex) {
           setState(() {
-            page_no = pageIndex;
+            pageno = pageIndex;
           });
         },
 
-        destinations: const <Widget>[
-          // Home
-          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+        destinations: List.generate(_labels.length, (index) {
+          return NavigationDestination(icon: _icons[index], label: _labels[index]);
+        },),
 
-          // Issue Report
-          NavigationDestination(
-            icon: Icon(Icons.report),
-            label: "Report",
-          ),
+        // destinations: const <Widget>[
+        //   // Home
+        //   NavigationDestination(
+        //     icon: _icon, 
+        //     label: "Home",
+        //     ),
 
-          // Track Your Report
-          NavigationDestination(
-            icon: Icon(Icons.menu_book_sharp),
-            label: "Tack",
-          ),
+        //   // Issue Report
+        //   NavigationDestination(
+        //     icon: Icon(Icons.report),
+        //     label: "Report",
+        //   ),
 
-          // Report History
-          NavigationDestination(
-            icon: Icon(Icons.history),
-            label: "History",
-          ),
+        //   // Track Your Report
+        //   NavigationDestination(
+        //     icon: Icon(Icons.menu_book_sharp),
+        //     label: "Tack",
+        //   ),
 
-          // User Profile
-          NavigationDestination(
-            icon: Icon(Icons.person),
-            label: "Profile"
-          ),
-        ],
+        //   // Report History
+        //   NavigationDestination(
+        //     icon: Icon(Icons.history),
+        //     label: "History",
+        //   ),
+
+        //   // User Profile
+        //   NavigationDestination(
+        //     icon: Icon(Icons.person),
+        //     label: "Profile",
+        //   ),
+        // ],
       ),
     );
   }

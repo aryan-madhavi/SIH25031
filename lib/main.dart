@@ -3,11 +3,13 @@ import 'package:civic_reporter/App/Core/Theme/light_theme.dart';
 import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
+import 'package:civic_reporter/Web/Core/widgets/side_bar.dart';
 // import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
 // import 'package:civic_reporter/presentation/IssueReportingPage/Screens/issue_reporting_screen.dart';
 // import 'package:civic_reporter/App/presentation/home/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() {
   runApp(ProviderScope(child: const MyApp()));
@@ -41,8 +43,8 @@ class RootScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppbarWidget(),
-      body: const BottomNavBar(),
+      appBar: kIsWeb? null : const AppbarWidget(),
+      body: kIsWeb? const SideBar() : const BottomNavBar(),
     );
   }
 }
