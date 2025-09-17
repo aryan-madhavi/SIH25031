@@ -1,5 +1,5 @@
-import 'package:civic_reporter/Core/Constants/string_constants.dart';
-import 'package:civic_reporter/Core/services/responsive_service.dart';
+import 'package:civic_reporter/App/Core/Constants/string_constants.dart';
+import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:flutter/material.dart';
 
 class SubmitReportForm extends StatefulWidget {

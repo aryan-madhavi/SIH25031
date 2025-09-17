@@ -1,8 +1,11 @@
-import 'package:civic_reporter/Core/Theme/dark_theme.dart';
-import 'package:civic_reporter/Core/Theme/light_theme.dart';
-import 'package:civic_reporter/Core/Theme/riverpod/theme_provider.dart';
-import 'package:civic_reporter/presentation/IssueReportingPage/Screens/issue_reporting_screen.dart';
-import 'package:civic_reporter/presentation/home/screens/home_page.dart';
+import 'package:civic_reporter/App/Core/Theme/dark_theme.dart';
+import 'package:civic_reporter/App/Core/Theme/light_theme.dart';
+import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
+import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
+import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
+// import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
+// import 'package:civic_reporter/presentation/IssueReportingPage/Screens/issue_reporting_screen.dart';
+// import 'package:civic_reporter/App/presentation/home/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,10 +27,22 @@ class MyApp extends StatelessWidget {
           theme: lightThemeData,
           darkTheme: darkThemeData,
           debugShowCheckedModeBanner: false,
-          home: IssueReportingScreen(),
+          home: const RootScaffold(),
           themeMode: themeMode,
         );
       },
+    );
+  }
+}
+
+class RootScaffold extends StatelessWidget {
+  const RootScaffold({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const AppbarWidget(),
+      body: const BottomNavBar(),
     );
   }
 }

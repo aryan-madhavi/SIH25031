@@ -1,6 +1,6 @@
-import 'package:civic_reporter/Core/Constants/string_constants.dart';
-import 'package:civic_reporter/Core/services/responsive_service.dart';
-import 'package:civic_reporter/presentation/home/widgets/home_report_widget.dart';
+import 'package:civic_reporter/App/Core/Constants/string_constants.dart';
+import 'package:civic_reporter/App/Core/services/responsive_service.dart';
+import 'package:civic_reporter/App/presentation/home/widgets/home_report_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeReportInformation extends StatelessWidget {

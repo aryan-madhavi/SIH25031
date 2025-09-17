@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:civic_reporter/Core/Constants/color_constants.dart';
+import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 class ThemeHelper {

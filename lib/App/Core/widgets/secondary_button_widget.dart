@@ -1,6 +1,6 @@
-import 'package:civic_reporter/Core/Constants/color_constants.dart';
+import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 
-import 'package:civic_reporter/Core/services/responsive_service.dart';
+import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:flutter/material.dart';
 
 class SecondaryButtonWidget extends StatelessWidget {
