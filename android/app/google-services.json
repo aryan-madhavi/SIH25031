@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "619459192919",
+    "project_id": "carbonari-sih",
+    "storage_bucket": "carbonari-sih.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619459192919:android:71bd4cec33a8081e235b12",
+        "android_client_info": {
+          "package_name": "com.example.civic_reporter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdO8NiSLsJWnc0xuozGNhoJbI-CdpRYcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
