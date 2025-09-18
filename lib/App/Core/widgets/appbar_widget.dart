@@ -1,12 +1,22 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/Constants/string_constants.dart';
+import 'package:civic_reporter/App/Core/Theme/helper/theme_helper.dart';
 import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AppbarWidget extends ConsumerWidget implements PreferredSizeWidget {
-  const AppbarWidget({super.key});
+  final String? appBarText;
+  final IconData? actionButton2;
+  final bool isLeading;
+
+  const AppbarWidget(
+    this.appBarText,
+    this.actionButton2,
+    this.isLeading, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,13 +33,12 @@ class AppbarWidget extends ConsumerWidget implements PreferredSizeWidget {
 
     final currentTheme = ref.watch(themeProvider);
 
-    
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 2,
       //*title
       title: Text(
-        StringConstants.CivicReporter,
+        appBarText ?? "",
         style: TextStyle(
           fontSize: ResponsiveService.fs(0.075),
           //color: ColorConstants.primaryColorDark,
@@ -38,6 +47,24 @@ class AppbarWidget extends ConsumerWidget implements PreferredSizeWidget {
         ),
       ),
       automaticallyImplyLeading: false,
+      leading: isLeading
+          ? Padding(
+              padding: EdgeInsets.all(ResponsiveService.w(0.02)),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(
+                    color: ThemeHelper.buttonBorder(currentTheme),
+                  ),
+                ),
+                child: Icon(
+                  Icons.keyboard_arrow_left_rounded,
+
+                  //size: ResponsiveService.w(0.09),
+                ),
+              ),
+            )
+          : null,
       actions: [
         //* Toggle Switch:
         IconButton(
@@ -54,15 +81,14 @@ class AppbarWidget extends ConsumerWidget implements PreferredSizeWidget {
         //*
 
         //* Menu Switch:
-        // IconButton(
-        //   onPressed: () {},
-        //   icon: Icon(Icons.menu, size: ResponsiveService.w(0.058)),
-        // ),
-        //*
+        IconButton(
+          onPressed: () {},
+          icon: Icon(actionButton2, size: ResponsiveService.w(0.058)),
+        ),
       ],
     );
   }
-  
- @override
+
+  @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

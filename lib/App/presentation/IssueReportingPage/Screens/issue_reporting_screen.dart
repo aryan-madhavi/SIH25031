@@ -11,6 +11,7 @@ class IssueReportingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ResponsiveService.init(context);
     return Scaffold(
       // appBar: AppbarWidget(),
       // bottomNavigationBar: BottomNavBar(),

@@ -10,6 +10,7 @@ class SubmitReportForm extends StatefulWidget {
 }
 
 class _SubmitReportFormState extends State<SubmitReportForm> {
+  
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
 

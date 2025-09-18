@@ -2,9 +2,10 @@ import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 ThemeData darkThemeData = ThemeData(
+  fontFamily: 'Poppins',
   brightness: Brightness.dark,
   primaryColor: ColorConstants.primaryDarkBackgroundColor,
-  
+
   useMaterial3: true,
   inputDecorationTheme: InputDecorationTheme(
     fillColor: ColorConstants.darkInputFillColor,
