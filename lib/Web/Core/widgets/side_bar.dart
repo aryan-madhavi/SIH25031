@@ -1,4 +1,8 @@
+import 'package:civic_reporter/Web/presentation/administration/screen/administration_page.dart';
+import 'package:civic_reporter/Web/presentation/audit%20logs/screen/audit_logs_page.dart';
 import 'package:civic_reporter/Web/presentation/dashboard/screens/dashboard_page.dart';
+import 'package:civic_reporter/Web/presentation/people/screen/people_page.dart';
+import 'package:civic_reporter/Web/presentation/reports/screen/reports_page.dart';
 import 'package:flutter/material.dart';
 
 class SideBar extends StatefulWidget {
@@ -29,12 +33,15 @@ class _SideBarState extends State<SideBar> {
 
   final List<Widget> _pages = const [
     DashboardPage(),
+    ReportsPage(),
+    PeoplePage(),
+    AuditLogsPage(),
+    AdministrationPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
+    return Row(
         children: [
           NavigationRail(
             selectedIndex: pageno, 
@@ -45,9 +52,8 @@ class _SideBarState extends State<SideBar> {
             destinations: List.generate(_labels.length, (index) {
               return NavigationRailDestination(icon: _icons[index], label: Text(_labels[index]),);
             },),),
-            Expanded(child: _pages[pageno])
+            Expanded(child: _pages[pageno]),
         ],
-      ),
     );
   }
 }
