@@ -1,9 +1,11 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
+import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/secondary_button_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/snack_bar_constant_widget.dart';
 import 'package:civic_reporter/App/presentation/auth/widgets/divider_widget.dart';
+import 'package:civic_reporter/App/presentation/auth/widgets/password_text_field.dart';
 import 'package:civic_reporter/App/presentation/auth/widgets/signin_widget.dart';
 import 'package:civic_reporter/App/presentation/auth/widgets/text_field_widget.dart';
 import 'package:civic_reporter/App/presentation/home/screens/home_page.dart';
@@ -55,68 +57,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     final rememberState = ref.watch(rememberMeProvider);
 
     return Scaffold(
-      appBar: AppbarWidget('Login', Icons.menu, false),
-      bottomSheet: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: ResponsiveService.w(0.06),
-          horizontal: ResponsiveService.w(0.05),
-        ),
-
-        child: SecondaryButtonWidget(
-          buttonLabel: "Login",
-          buttonIcon: Icons.keyboard_arrow_right_rounded,
-          buttonOnPress: () async {
-            if (_emailController.text.isNotEmpty &&
-                _passwordController.text.isNotEmpty) {
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (_) => AlertDialog(
-                  content: Row(
-                    children: [
-                      const CircularProgressIndicator(),
-                      const SizedBox(width: 20),
-                      Text("Logging in..."),
-                    ],
-                  ),
-                ),
-              );
-
-              final result = await repo.login(
-                email: _emailController.text.trim(),
-                password: _passwordController.text.trim(),
-              );
-
-              Navigator.of(context).pop(); // close dialog
-
-              if (result.success) {
-                SnackBarConstantWidget.show(context, "Login Successful");
-
-                // save prefs
-                ref
-                    .read(rememberMeProvider.notifier)
-                    .toggleRememberMe(
-                      rememberState.rememberMe,
-                      _emailController.text,
-                      _passwordController.text,
-                    );
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                );
-              } else {
-                SnackBarConstantWidget.show(context, result.message);
-              }
-            } else {
-              SnackBarConstantWidget.show(
-                context,
-                "Please Fill all the Fields Before Logging In",
-              );
-            }
-          },
-        ),
-      ),
+      appBar: AppbarWidget('Login', Icons.menu, false, () {}),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -129,7 +70,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 'Welcome Back',
                 style: TextStyle(
                   fontWeight: FontWeight.w800,
-                  fontSize: ResponsiveService.fs(0.1),
+                  fontSize: ResponsiveService.fs(0.08),
                 ),
               ),
 
@@ -137,7 +78,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 'Login In to your Account.',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: ResponsiveService.fs(0.05),
+                  fontSize: ResponsiveService.fs(0.04),
                   color: ColorConstants.darkGreyColor,
                 ),
               ),
@@ -161,9 +102,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     SizedBox(height: ResponsiveService.h(0.01)),
 
                     TextFieldWidget(
-                      TextHidden: false,
+                      textHidden: false,
                       controller: _emailController,
-                      hintText: 'Email Address',
+                      hintText: 'Your Email Address',
                       icon: null,
                     ),
 
@@ -179,30 +120,31 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                     const SizedBox(height: 10),
 
-                    TextField(
-                      obscureText: !isVisible,
+                    PasswordTextField(controller: _passwordController),
 
-                      controller: _passwordController,
+                    // TextField(
+                    //   obscureText: !isVisible,
 
-                      decoration: InputDecoration(
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() => isVisible = !isVisible);
-                          },
-                          child: Icon(
-                            isVisible ? Icons.visibility : Icons.visibility_off,
-                          ),
-                        ),
-                        filled: true,
-                        //fillColor: ConstColor.TextfieldBackground,
-                        hintText: 'Password',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        hintStyle: const TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                    ),
+                    //   controller: _passwordController,
 
+                    //   decoration: InputDecoration(
+                    //     suffixIcon: GestureDetector(
+                    //       onTap: () {
+                    //         setState(() => isVisible = !isVisible);
+                    //       },
+                    //       child: Icon(
+                    //         isVisible ? Icons.visibility : Icons.visibility_off,
+                    //       ),
+                    //     ),
+                    //     filled: true,
+                    //     //fillColor: ConstColor.TextfieldBackground,
+                    //     hintText: 'Password',
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(8),
+                    //     ),
+                    //     hintStyle: const TextStyle(fontWeight: FontWeight.w600),
+                    //   ),
+                    // ),
                     SizedBox(height: ResponsiveService.h(0.01)),
 
                     Row(
@@ -233,10 +175,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           ],
                         ),
                         GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                            context,
-                            '/forgot_pass_main_screen',
-                          ),
+                          // onTap: () => Navigator.pushNamed(
+                          //   context,
+                          //   '/forgot_pass_main_screen',
+                          // ),
                           child: Text(
                             "Forgot Password ?",
                             style: TextStyle(
@@ -250,6 +192,77 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ),
 
                     SizedBox(height: ResponsiveService.h(0.05)),
+
+                    SecondaryButtonWidget(
+                      buttonLabel: "Login",
+                      buttonIcon: null,
+
+                      buttonOnPress: () async {
+                        if (_emailController.text.isNotEmpty &&
+                            _passwordController.text.isNotEmpty) {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) => const AlertDialog(
+                              content: Row(
+                                children: [
+                                  CircularProgressIndicator(),
+                                  SizedBox(width: 20),
+                                  Text("Logging in..."),
+                                ],
+                              ),
+                            ),
+                          );
+
+                          final result = await repo.login(
+                            email: _emailController.text.trim(),
+                            password: _passwordController.text.trim(),
+                          );
+
+                          Navigator.of(context).pop(); // close dialog
+
+                          if (result.success) {
+                            SnackBarConstantWidget.show(
+                              context,
+                              "Login Successful",
+                            );
+
+                            // save prefs
+                            ref
+                                .read(rememberMeProvider.notifier)
+                                .toggleRememberMe(
+                                  rememberState.rememberMe,
+                                  _emailController.text,
+                                  _passwordController.text,
+                                );
+
+                            Navigator.pushNamed(context, '/home');
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: const Text('Login Failed'),
+                                content: Text(result.message),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: Center(child: const Text('OK')),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        } else {
+                          SnackBarConstantWidget.show(
+                            context,
+                            "Please Fill all the Fields Before Logging In",
+                          );
+                        }
+                      },
+                    ),
+
+                    SizedBox(height: ResponsiveService.h(0.1)),
 
                     DividerWidget(),
 
@@ -299,7 +312,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         ),
                         GestureDetector(
                           onTap: () =>
-                              Navigator.pushNamed(context, '/register_page'),
+                              Navigator.pushNamed(context, '/signupPage'),
                           child: Text(
                             "Register",
                             style: TextStyle(

@@ -1,6 +1,14 @@
+import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/Constants/string_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
+import 'package:civic_reporter/App/Core/widgets/secondary_button_widget.dart';
+import 'package:civic_reporter/App/presentation/IssueReportingPage/widgets/photo_evidence_widget.dart';
+import 'package:civic_reporter/App/presentation/IssueReportingPage/widgets/urgency_button_widget.dart';
+import 'package:civic_reporter/App/presentation/auth/widgets/text_field_widget.dart';
+import 'package:civic_reporter/App/providers/selected_catrgory_product_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 class SubmitReportForm extends StatefulWidget {
   const SubmitReportForm({super.key});
@@ -10,7 +18,6 @@ class SubmitReportForm extends StatefulWidget {
 }
 
 class _SubmitReportFormState extends State<SubmitReportForm> {
-  
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
 
@@ -18,83 +25,116 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
   String urgency = "Low";
 
   final List<String> categories = [
-    "Road Issue",
-    "Garbage",
-    "Street Light",
-    "Water Supply",
-    "Other",
+    "Road & Transportation",
+    "Utilities",
+    "Enviroment",
+    "Public Safety",
+    "Infrastructure",
+    "Public Places",
+    "Others",
   ];
 
   @override
   Widget build(BuildContext context) {
+    ResponsiveService.init(context);
+
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title
-           Text(
-            StringConstants.submitNewReportTitle,
-            style: TextStyle(fontSize: ResponsiveService.h(0.1), fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            "Provide details about the civic issue you'd like to report",
-            style: TextStyle(color: Colors.grey),
-          ),
-          const SizedBox(height: 20),
-
           // Photo Upload
-          Text("Photo Evidence", style: TextStyle()),
-          const SizedBox(height: 8),
+          Text(
+            "Photo Evidence",
+            style: TextStyle(
+              fontSize: ResponsiveService.fs(0.045),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+
+          SizedBox(height: ResponsiveService.h(0.01)),
+
           GestureDetector(
             onTap: () {
               // TODO: implement file picker
             },
-            child: DottedBorderBox(),
+            child: PhotoEvidenceWidget(),
           ),
-          const SizedBox(height: 20),
+
+          SizedBox(height: ResponsiveService.h(0.04)),
 
           // Category
-          Text("Category", style: TextStyle()),
-          const SizedBox(height: 8),
-          DropdownButtonFormField<String>(
-            value: selectedCategory,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
+          Text(
+            "Category",
+            style: TextStyle(
+              fontSize: ResponsiveService.fs(0.045),
+              fontWeight: FontWeight.w500,
             ),
-            hint: const Text("Select issue category"),
-            items: categories
-                .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                .toList(),
-            onChanged: (val) {
-              setState(() {
-                selectedCategory = val;
-              });
+          ),
+
+          SizedBox(height: ResponsiveService.h(0.01)),
+
+          Consumer(
+            builder: (context, ref, child) {
+              return DropdownButtonFormField<String>(
+                value: selectedCategory,
+
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+
+                hint: const Text("Select issue category"),
+
+                items: categories
+                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                    .toList(),
+                onChanged: (val) {
+                  ref.read(selectedCategoryProvider.notifier).update((state) {
+                    return val ?? '';
+                  });
+                },
+              );
             },
           ),
-          const SizedBox(height: 20),
+
+          SizedBox(height: ResponsiveService.h(0.04)),
 
           // Description
-          Text("Description", style: TextStyle()),
-          const SizedBox(height: 8),
+          Text(
+            "Description",
+            style: TextStyle(
+              fontSize: ResponsiveService.fs(0.045),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+
+          SizedBox(height: ResponsiveService.h(0.01)),
+
           TextField(
             controller: descriptionController,
-            maxLines: 3,
+            maxLines: 4,
             decoration: InputDecoration(
-              hintText: "Describe the issue in detail...",
+              hintText: "Describe the issue in detail",
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
           ),
-          const SizedBox(height: 20),
+
+          SizedBox(height: ResponsiveService.h(0.045)),
 
           // Location
-          Text("Location"),
-          const SizedBox(height: 8),
+          Text(
+            "Location",
+            style: TextStyle(
+              fontSize: ResponsiveService.fs(0.045),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+
+          SizedBox(height: ResponsiveService.h(0.01)),
+
           Row(
             children: [
               Expanded(
@@ -108,116 +148,70 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
                   ),
                 ),
               ),
-              const SizedBox(width: 8),
-              IconButton(
-                icon: const Icon(Icons.location_on),
-                onPressed: () {
-                  // TODO: get current location
-                },
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
+              SizedBox(width: ResponsiveService.h(0.01)),
 
-          // Urgency Level
-          Text("Urgency Level", style: TextStyle()),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              urgencyButton("Low", Colors.green),
-              const SizedBox(width: 8),
-              urgencyButton("Medium", Colors.orange),
-              const SizedBox(width: 8),
-              urgencyButton("High", Colors.red),
-            ],
-          ),
-          const SizedBox(height: 24),
-
-          // Submit Button
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+              Ink(
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(10),
+                  ),
+                  color: ColorConstants.secondaryColor,
+                ),
+                child: IconButton(
+                  tooltip: "Add Current Location",
+                  icon: const Icon(Icons.location_on),
+                  onPressed: () {
+                    // TODO: get current location
+                  },
                 ),
               ),
-              icon: const Icon(Icons.check_circle_outline),
-              label: const Text(
-                "Submit Report",
-                style: TextStyle(fontSize: 16),
-              ),
-              onPressed: () {
-                // TODO: handle submit logic
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget urgencyButton(String label, Color color) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            urgency = label;
-          });
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: urgency == label ? color.withOpacity(0.2) : Colors.grey[900],
-            border: Border.all(
-              color: urgency == label ? color : Colors.grey.shade700,
-            ),
-          ),
-          child: Column(
-            children: [
-              Icon(Icons.warning, color: color),
-              const SizedBox(height: 4),
-              Text(label, style: TextStyle(color: color)),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
 
-// Custom Dashed Box for photo upload
-class DottedBorderBox extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 120,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey,
-          style: BorderStyle.solid,
-          width: 1,
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.camera_alt, size: 40, color: Colors.grey),
-            SizedBox(height: 8),
-            Text("Click to upload or drag and drop"),
-            SizedBox(height: 8),
-            ElevatedButton.icon(
-              icon: Icon(Icons.upload_file),
-              label: Text("Choose File"),
-              onPressed: null, // TODO: add upload action
+          SizedBox(height: ResponsiveService.h(0.05)),
+
+          // Urgency Level
+          Text(
+            "Urgency Level",
+            style: TextStyle(
+              fontSize: ResponsiveService.fs(0.045),
+              fontWeight: FontWeight.w400,
             ),
-          ],
-        ),
+          ),
+
+          SizedBox(height: ResponsiveService.h(0.01)),
+
+          Row(
+            children: [
+              UrgencyButtonWidget(
+                label: "Low",
+                color: Colors.green,
+                icon: Icons.check_circle,
+              ),
+
+              SizedBox(width: ResponsiveService.w(0.015)),
+
+              UrgencyButtonWidget(
+                label: "Medium",
+                color: Colors.orange,
+                icon: Icons.warning_amber,
+              ),
+
+              SizedBox(width: ResponsiveService.w(0.015)),
+
+              UrgencyButtonWidget(
+                label: "High",
+                color: Colors.red,
+                icon: Icons.error,
+              ),
+            ],
+          ),
+
+          SizedBox(height: ResponsiveService.h(0.09)),
+
+          // Submit Button
+         
+        ],
       ),
     );
   }

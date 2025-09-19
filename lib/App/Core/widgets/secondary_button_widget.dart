@@ -1,9 +1,12 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
+import 'package:civic_reporter/App/Core/Theme/helper/theme_helper.dart';
+import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
 
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SecondaryButtonWidget extends StatelessWidget {
+class SecondaryButtonWidget extends ConsumerWidget {
   final String? buttonLabel;
   final IconData? buttonIcon;
   final VoidCallback buttonOnPress;
@@ -15,7 +18,9 @@ class SecondaryButtonWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentTheme = ref.watch(themeProvider);
+
     return GestureDetector(
       onTap: buttonOnPress,
       child: Container(
@@ -25,8 +30,8 @@ class SecondaryButtonWidget extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: ColorConstants.primaryColorDark,
-              spreadRadius: 0,
+              color: ThemeHelper.ButtonBackground(currentTheme),
+              spreadRadius: 0.5,
               blurRadius: 5,
             ),
           ],

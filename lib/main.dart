@@ -3,8 +3,11 @@ import 'package:civic_reporter/App/Core/Theme/light_theme.dart';
 import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
+import 'package:civic_reporter/App/presentation/IssueReportingPage/Screens/issue_reporting_screen.dart';
 import 'package:civic_reporter/App/presentation/auth/Login%20And%20Signup/Screens/login_page.dart';
+import 'package:civic_reporter/App/routes/app_routes.dart';
 import 'package:civic_reporter/Web/Core/widgets/side_bar.dart';
+import 'package:civic_reporter/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
 // import 'package:civic_reporter/presentation/IssueReportingPage/Screens/issue_reporting_screen.dart';
@@ -15,7 +18,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(ProviderScope(child: const MyApp()));
 }
 
@@ -36,6 +39,7 @@ class MyApp extends StatelessWidget {
           // home: const RootScaffold(),
           home: LoginPage(),
           themeMode: themeMode,
+          routes: AppRoutes.routes,
         );
       },
     );
@@ -50,7 +54,7 @@ class RootScaffold extends StatelessWidget {
     return Scaffold(
       appBar: kIsWeb
           ? null
-          : const AppbarWidget('CivicReporter', Icons.menu, false),
+          : AppbarWidget('CivicReporter', Icons.menu, false, () {}),
       body: kIsWeb ? const SideBar() : const BottomNavBar(),
     );
   }

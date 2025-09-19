@@ -10,11 +10,13 @@ class AppbarWidget extends ConsumerWidget implements PreferredSizeWidget {
   final String? appBarText;
   final IconData? actionButton2;
   final bool isLeading;
+  final VoidCallback? onAppBarPress;
 
   const AppbarWidget(
     this.appBarText,
     this.actionButton2,
-    this.isLeading, {
+    this.isLeading,
+    this.onAppBarPress, {
     super.key,
   });
 
@@ -33,59 +35,54 @@ class AppbarWidget extends ConsumerWidget implements PreferredSizeWidget {
 
     final currentTheme = ref.watch(themeProvider);
 
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 2,
-      //*title
-      title: Text(
-        appBarText ?? "",
-        style: TextStyle(
-          fontSize: ResponsiveService.fs(0.075),
-          //color: ColorConstants.primaryColorDark,
-          fontWeight: FontWeight.w700,
-          foreground: Paint()..shader = linearGradient,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 2,
+        //*title
+        title: Text(
+          appBarText ?? "",
+          style: TextStyle(
+            fontSize: ResponsiveService.fs(0.075),
+            //color: ColorConstants.primaryColorDark,
+            fontWeight: FontWeight.w700,
+            foreground: Paint()..shader = linearGradient,
+          ),
         ),
-      ),
-      automaticallyImplyLeading: false,
-      leading: isLeading
-          ? Padding(
-              padding: EdgeInsets.all(ResponsiveService.w(0.02)),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(
-                    color: ThemeHelper.buttonBorder(currentTheme),
-                  ),
-                ),
+        automaticallyImplyLeading: false,
+        leading: isLeading
+            ? GestureDetector(
+                onTap: onAppBarPress,
                 child: Icon(
                   Icons.keyboard_arrow_left_rounded,
+                  size: ResponsiveService.w(0.09),
 
                   //size: ResponsiveService.w(0.09),
                 ),
-              ),
-            )
-          : null,
-      actions: [
-        //* Toggle Switch:
-        IconButton(
-          onPressed: onThemeButtonToggle,
-          icon: Icon(
-            currentTheme == ThemeMode.light
-                ? Icons.dark_mode_outlined
-                : Icons.light_mode_outlined,
+              )
+            : null,
+        actions: [
+          //* Toggle Switch:
+          IconButton(
+            onPressed: onThemeButtonToggle,
+            icon: Icon(
+              currentTheme == ThemeMode.light
+                  ? Icons.dark_mode_outlined
+                  : Icons.light_mode_outlined,
 
-            size: ResponsiveService.w(0.058),
+              size: ResponsiveService.w(0.058),
+            ),
+            hoverColor: ColorConstants.secondaryColor,
           ),
-          hoverColor: ColorConstants.secondaryColor,
-        ),
-        //*
+          //*
 
-        //* Menu Switch:
-        IconButton(
-          onPressed: () {},
-          icon: Icon(actionButton2, size: ResponsiveService.w(0.058)),
-        ),
-      ],
+          //* Menu Switch:
+          IconButton(
+            onPressed: () {},
+            icon: Icon(actionButton2, size: ResponsiveService.w(0.058)),
+          ),
+        ],
+      ),
     );
   }
 

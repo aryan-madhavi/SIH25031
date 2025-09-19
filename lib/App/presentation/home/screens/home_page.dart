@@ -1,12 +1,12 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/Constants/string_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
-// import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
-// import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
+import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/primary_button_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/secondary_button_widget.dart';
 import 'package:civic_reporter/App/presentation/IssueReportingPage/Screens/issue_reporting_screen.dart';
 import 'package:civic_reporter/App/presentation/home/widgets/home_report_information.dart';
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,8 +22,8 @@ class _HomePageState extends State<HomePage> {
     ResponsiveService.init(context);
 
     return Scaffold(
-      // appBar: AppbarWidget(),
-      // bottomNavigationBar: BottomNavBar(),
+      appBar: AppbarWidget('CivicReporter', Icons.menu, false, () {}), 
+      //bottomNavigationBar: BottomNavBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(ResponsiveService.w(0.025)),
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
 
               SecondaryButtonWidget(
                 buttonOnPress: () {
-                  //TODO navigate to report Page
+                  //Navigator.pushNamed(context, AppRoutes.issueReportingPage);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -76,6 +76,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
+
                 buttonLabel: StringConstants.reportButtonText,
                 buttonIcon: Icons.keyboard_arrow_right_rounded,
               ),
@@ -90,6 +91,8 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: ResponsiveService.h(0.03)),
 
               HomeReportInformation(),
+
+              SizedBox(height: ResponsiveService.h(0.1)),
             ],
           ),
         ),
