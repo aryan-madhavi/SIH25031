@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           darkTheme: darkThemeData,
           debugShowCheckedModeBanner: false,
           // home: const RootScaffold(),
-          home: LoginPage(),
+          home: IssueReportingScreen(),
           themeMode: themeMode,
           routes: AppRoutes.routes,
         );

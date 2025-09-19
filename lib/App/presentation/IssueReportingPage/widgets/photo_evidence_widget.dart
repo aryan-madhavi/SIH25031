@@ -1,5 +1,8 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
+import 'package:civic_reporter/App/controllers/app_controllers.dart';
+import 'package:civic_reporter/App/data/services/permission_services.dart';
+import 'package:civic_reporter/App/presentation/IssueReportingPage/widgets/image_picker_preview.dart';
 import 'package:flutter/material.dart';
 
 class PhotoEvidenceWidget extends StatelessWidget {
@@ -39,8 +42,32 @@ class PhotoEvidenceWidget extends StatelessWidget {
             SizedBox(height: ResponsiveService.h(0.05)),
 
             ElevatedButton.icon(
-              onPressed: () {
+              onPressed: () async {
                 // TODO: add upload action
+                final permissionService = PermissionServices();
+                final appController = AppControllers();
+
+                // Request permissions
+                final hasPermission = await permissionService
+                    .requestPermissions();
+                  
+                  
+
+                if (!hasPermission) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Permission denied. Please enable camera and storage.',
+                      ),
+                    ),
+                  );
+                  return;
+                }
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ImagePickerPreview()),
+                );
               },
               icon: Icon(Icons.upload_rounded),
               label: Text(

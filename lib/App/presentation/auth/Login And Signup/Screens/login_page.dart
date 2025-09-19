@@ -1,5 +1,4 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
-import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/secondary_button_widget.dart';
@@ -8,7 +7,6 @@ import 'package:civic_reporter/App/presentation/auth/widgets/divider_widget.dart
 import 'package:civic_reporter/App/presentation/auth/widgets/password_text_field.dart';
 import 'package:civic_reporter/App/presentation/auth/widgets/signin_widget.dart';
 import 'package:civic_reporter/App/presentation/auth/widgets/text_field_widget.dart';
-import 'package:civic_reporter/App/presentation/home/screens/home_page.dart';
 import 'package:civic_reporter/App/providers/auth_provider.dart';
 import 'package:civic_reporter/App/providers/remember_me_provider.dart';
 import 'package:flutter/material.dart';

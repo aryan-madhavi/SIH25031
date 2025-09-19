@@ -3,12 +3,11 @@ import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/secondary_button_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/snack_bar_constant_widget.dart';
-import 'package:civic_reporter/App/presentation/auth/Login%20And%20Signup/Screens/login_page.dart';
 import 'package:civic_reporter/App/presentation/auth/widgets/password_text_field.dart';
 import 'package:civic_reporter/App/presentation/auth/widgets/signin_widget.dart';
 import 'package:civic_reporter/App/presentation/auth/widgets/text_field_widget.dart';
 import 'package:civic_reporter/App/providers/auth_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,7 +25,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
   bool isVisble = false;
 
-  final _currentUser = FirebaseAuth.instance.currentUser;
+  // final _currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {

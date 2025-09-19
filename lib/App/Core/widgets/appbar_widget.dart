@@ -1,6 +1,4 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
-import 'package:civic_reporter/App/Core/Constants/string_constants.dart';
-import 'package:civic_reporter/App/Core/Theme/helper/theme_helper.dart';
 import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:flutter/material.dart';

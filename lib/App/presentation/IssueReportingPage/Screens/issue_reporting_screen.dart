@@ -3,9 +3,8 @@ import 'package:civic_reporter/App/Core/Constants/string_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/secondary_button_widget.dart';
-// import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
-// import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
-import 'package:civic_reporter/App/presentation/IssueReportingPage/widgets/submit_report_form.dart';
+
+import 'package:civic_reporter/App/presentation/IssueReportingPage/Screens/submit_report_form.dart';
 import 'package:flutter/material.dart';
 
 class IssueReportingScreen extends StatelessWidget {
@@ -20,7 +19,9 @@ class IssueReportingScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(ResponsiveService.w(0.05)),
         child: SecondaryButtonWidget(
-          buttonOnPress: () {},
+          buttonOnPress: () {
+            //TODO Submit the Report and Store It in FireStore
+          },
           buttonLabel: 'Submit Report',
           buttonIcon: Icons.keyboard_arrow_right_rounded,
         ),
@@ -52,17 +53,6 @@ class IssueReportingScreen extends StatelessWidget {
               ),
 
               SizedBox(height: ResponsiveService.h(0.02)),
-
-              // //*title
-              // Text(
-              //   StringConstants.reportButtonText,
-              //   style: TextStyle(
-              //     color: ColorConstants.primaryColorDark,
-              //     fontSize: ResponsiveService.fs(0.05),
-              //   ),
-              // ),
-              // //*subtitle
-              // Text(StringConstants.reportIssuePageSubtitle, style: TextStyle()),
 
               //*report widget
               SubmitReportForm(),

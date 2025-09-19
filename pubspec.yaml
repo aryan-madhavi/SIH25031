@@ -30,12 +30,15 @@ environment:
 dependencies:
   cloud_firestore: 
   cupertino_icons: 
+  file_picker: 
   firebase_auth: 
   firebase_core: 
   flutter:
     sdk: flutter
   flutter_riverpod: 
-  http: null
+  http: 
+  image_picker: 
+  permission_handler: 
   shared_preferences: 
 
 dev_dependencies:
