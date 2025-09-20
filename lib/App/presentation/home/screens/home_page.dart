@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     ResponsiveService.init(context);
 
     return Scaffold(
-      appBar: AppbarWidget('CivicReporter', Icons.menu, false, () {}), 
+      // appBar: AppbarWidget('CivicReporter', Icons.menu, false, () {}), 
       //bottomNavigationBar: BottomNavBar(),
       body: SingleChildScrollView(
         child: Padding(

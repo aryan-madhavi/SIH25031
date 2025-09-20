@@ -17,7 +17,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   final List<String> _labels = const [
     "Home",
-    "Report",
+    // "Report",
     "Track",
     "History",
     "Profile",
@@ -25,7 +25,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   final List<Icon> _icons = const [
     Icon(Icons.home),
-    Icon(Icons.report),
+    // Icon(Icons.report),
     Icon(Icons.menu_book_sharp),
     Icon(Icons.history),
     Icon(Icons.person),
@@ -33,7 +33,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   final List<Widget> _pages = const [
     HomePage(),
-    IssueReportingScreen(),
+    // IssueReportingScreen(),
     TrackYourReportPage(),
     ReportHistoryPage(),
     UserProfilePage(),

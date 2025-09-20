@@ -14,7 +14,12 @@ class IssueReportingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ResponsiveService.init(context);
     return Scaffold(
-      appBar: AppbarWidget('Report Issue', Icons.menu, true, () {}),
+      appBar: AppbarWidget(
+        'Report Issue', 
+        Icons.menu, true, 
+        ()=>Navigator.pop(context),
+        ),
+
       // bottomNavigationBar: BottomNavBar(),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(ResponsiveService.w(0.05)),
