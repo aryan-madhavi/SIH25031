@@ -3,8 +3,6 @@ import 'package:civic_reporter/App/Core/Theme/light_theme.dart';
 import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
-import 'package:civic_reporter/App/presentation/IssueReportingPage/Screens/issue_reporting_screen.dart';
-import 'package:civic_reporter/App/presentation/auth/Login%20And%20Signup/Screens/login_page.dart';
 import 'package:civic_reporter/App/routes/app_routes.dart';
 import 'package:civic_reporter/Web/Core/widgets/side_bar.dart';
 import 'package:civic_reporter/firebase_options.dart';

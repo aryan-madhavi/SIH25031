@@ -1,8 +1,5 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
-import 'package:civic_reporter/App/controllers/app_controllers.dart';
-import 'package:civic_reporter/App/data/services/permission_services.dart';
-import 'package:civic_reporter/App/presentation/IssueReportingPage/widgets/image_picker_preview.dart';
 import 'package:civic_reporter/App/presentation/IssueReportingPage/widgets/photo_evidence_widget.dart';
 import 'package:civic_reporter/App/presentation/IssueReportingPage/widgets/urgency_button_widget.dart';
 import 'package:civic_reporter/App/providers/selected_catrgory_product_provider.dart';
@@ -52,6 +49,7 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
 
           SizedBox(height: ResponsiveService.h(0.01)),
 
+        //*Calling the widget
           PhotoEvidenceWidget(),
 
           SizedBox(height: ResponsiveService.h(0.04)),
