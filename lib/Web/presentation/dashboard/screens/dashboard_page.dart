@@ -1,4 +1,6 @@
+import 'package:civic_reporter/Web/presentation/dashboard/widgets/dashboard_metric_grid_card.dart';
 import 'package:civic_reporter/Web/presentation/dashboard/widgets/pie_chart_card.dart';
+import 'package:civic_reporter/Web/presentation/dashboard/widgets/recent_reports_card.dart';
 import 'package:civic_reporter/Web/presentation/dashboard/widgets/stacked_column_chart_card.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +24,8 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               StackedColumnChartCard(),
               PieChartCard(),
+              DashboardMetricGridCard(),
+              RecentReportsCard(),
             ],
           ),
         ),

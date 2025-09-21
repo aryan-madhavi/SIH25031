@@ -43,6 +43,7 @@ class _SideBarState extends ConsumerState<SideBar> {
                   itemCount: ConstantsofSideBar.labels.length,
                   itemBuilder: (context, index) {
                     final isSelected = _pageno == index;
+                    // final isSelected = ConstantsofSideBar.pages == index;
                     return _buildSidebarItem(
                       iconData: ConstantsofSideBar.icons[index],
                       label: ConstantsofSideBar.labels[index],
@@ -50,6 +51,7 @@ class _SideBarState extends ConsumerState<SideBar> {
                       onTap: () {
                         setState(() {
                           _pageno = index;
+                          // ConstantsofSideBar.pageno = index;
                         });
                       },
                     );
@@ -79,6 +81,7 @@ class _SideBarState extends ConsumerState<SideBar> {
           ),
         ),
         Expanded(child: ConstantsofSideBar.pages[_pageno]),
+        // Expanded(child: ConstantsofSideBar.pages[ConstantsofSideBar.pageno]),
       ],
     );
   }
