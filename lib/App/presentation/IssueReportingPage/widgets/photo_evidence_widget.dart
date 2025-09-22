@@ -1,9 +1,7 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:civic_reporter/App/controllers/app_controllers.dart';
-
-import 'package:civic_reporter/App/providers/select_image_provider.dart';
-
+import 'package:civic_reporter/App/providers/report_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,7 +25,7 @@ class PhotoEvidenceWidget extends ConsumerWidget {
                 Navigator.of(context).pop();
                 final file = await appController.pickFileFromStorage();
                 if (file != null) {
-                  ref.read(selectImageProvider.notifier).state = file;
+                  ref.read(reportNotifierProvider.notifier).updatemediaFile(file);
                 }
               },
             ),
@@ -38,7 +36,7 @@ class PhotoEvidenceWidget extends ConsumerWidget {
                 Navigator.of(context).pop();
                 final image = await appController.pickImageFromCamera();
                 if (image != null) {
-                  ref.read(selectImageProvider.notifier).state = image;
+                  ref.read(reportNotifierProvider.notifier).updatemediaFile(image);
                 }
               },
             ),
@@ -50,7 +48,7 @@ class PhotoEvidenceWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedImage = ref.watch(selectImageProvider);
+    final selectedImage = ref.watch(reportNotifierProvider).mediaFile;
     ResponsiveService.init(context);
 
     //TODO add more functionality to remove /add more images

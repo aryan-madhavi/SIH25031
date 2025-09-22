@@ -56,7 +56,9 @@ class AuthRepository extends FirebaseAuthHelper {
           'uid' : usr.user!.uid,
           'name': name,
           'email': email,
-          'created': FieldValue.serverTimestamp()
+          'created': FieldValue.serverTimestamp(),
+          'role' : 'user',
+          'totalreports' : 0
         });
 
         return AuthResult(

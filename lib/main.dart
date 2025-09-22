@@ -3,13 +3,11 @@ import 'package:civic_reporter/App/Core/Theme/light_theme.dart';
 import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
+import 'package:civic_reporter/App/presentation/auth/Login%20And%20Signup/Screens/login_page.dart';
 import 'package:civic_reporter/App/routes/app_routes.dart';
 import 'package:civic_reporter/Web/Core/widgets/side_bar.dart';
 import 'package:civic_reporter/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
-// import 'package:civic_reporter/presentation/IssueReportingPage/Screens/issue_reporting_screen.dart';
-// import 'package:civic_reporter/App/presentation/home/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -34,8 +32,8 @@ class MyApp extends StatelessWidget {
           theme: lightThemeData,
           darkTheme: darkThemeData,
           debugShowCheckedModeBanner: false,
-          home: const RootScaffold(),
-          // home: IssueReportingScreen(),
+          //home: const RootScaffold(),
+          home: LoginPage(),
           themeMode: themeMode,
           routes: AppRoutes.routes,
         );

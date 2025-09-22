@@ -1,4 +1,3 @@
-
 import 'package:civic_reporter/App/presentation/ReportHistory/Screens/report_history_page.dart';
 import 'package:civic_reporter/App/presentation/TrackYourReport/Screens/track_your_report_page.dart';
 import 'package:civic_reporter/App/presentation/UserProfile/Screens/user_profile_page.dart';
@@ -31,13 +30,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
     Icon(Icons.person),
   ];
 
-  final List<Widget> _pages = const [
+  final List<Widget> _pages = [
     HomePage(),
     // IssueReportingScreen(),
     TrackYourReportPage(),
     ReportHistoryPage(),
     UserProfilePage(),
-    ];
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +51,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
         },
 
         destinations: List.generate(_labels.length, (index) {
-          return NavigationDestination(icon: _icons[index], label: _labels[index]);
-        },),
+          return NavigationDestination(
+            icon: _icons[index],
+            label: _labels[index],
+          );
+        }),
 
         // destinations: const <Widget>[
         //   // Home
         //   NavigationDestination(
-        //     icon: _icon, 
+        //     icon: _icon,
         //     label: "Home",
         //     ),
 

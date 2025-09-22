@@ -1,8 +1,7 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/controllers/app_controllers.dart';
-
-import 'package:civic_reporter/App/providers/select_image_provider.dart';
+import 'package:civic_reporter/App/providers/report_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,7 +29,9 @@ class ImagePickerPreview extends ConsumerWidget {
                 final selectedFile = await controller.pickFileFromStorage();
 
                 if (selectedFile != null) {
-                  ref.read(selectImageProvider.notifier).state = selectedFile;
+                  ref
+                      .read(reportNotifierProvider.notifier)
+                      .updatemediaFile(selectedFile);
                 }
               },
             ),
@@ -42,7 +43,9 @@ class ImagePickerPreview extends ConsumerWidget {
                 Navigator.of(context).pop();
                 final selectedImage = await controller.pickImageFromCamera();
                 if (selectedImage != null) {
-                  ref.read(selectImageProvider.notifier).state = selectedImage;
+                  ref
+                      .read(reportNotifierProvider.notifier)
+                      .updatemediaFile(selectedImage);
                 }
               },
             ),
@@ -54,7 +57,7 @@ class ImagePickerPreview extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedImage = ref.watch(selectImageProvider);
+    final selectedImage = ref.watch(reportNotifierProvider).mediaFile;
 
     return Scaffold(
       appBar: AppbarWidget(

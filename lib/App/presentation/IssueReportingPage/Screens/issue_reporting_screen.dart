@@ -3,31 +3,68 @@ import 'package:civic_reporter/App/Core/Constants/string_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/secondary_button_widget.dart';
-
+import 'package:civic_reporter/App/data/repository/report_repository.dart';
+import 'package:civic_reporter/App/data/services/storage_services.dart';
 import 'package:civic_reporter/App/presentation/IssueReportingPage/Screens/submit_report_form.dart';
+import 'package:civic_reporter/App/providers/report_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class IssueReportingScreen extends StatelessWidget {
+class IssueReportingScreen extends ConsumerWidget {
   const IssueReportingScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final report = ref.watch(reportNotifierProvider);
+    final reportRepo = ref.watch(reportRepositoryProvider);
+    final storageServices = ref.watch(storageServiceProvider);
+
     ResponsiveService.init(context);
     return Scaffold(
       appBar: AppbarWidget(
-        'Report Issue', 
-        Icons.menu, true, 
-        ()=>Navigator.pop(context),
-        ),
+        'Report Issue',
+        Icons.menu,
+        true,
+        () => Navigator.pop(context),
+      ),
 
       // bottomNavigationBar: BottomNavBar(),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(ResponsiveService.w(0.05)),
-        child: SecondaryButtonWidget(
-          buttonOnPress: () {
-            //TODO Submit the Report and Store It in FireStore
-          },
-          buttonLabel: 'Submit Report',
+        child: FutureSecondaryButtonWidget(
+          buttonOnPress: report.isLoading
+              ? () async {
+                  CircularProgressIndicator();
+                }
+              : () async {
+                  try {
+                    await ref
+                        .read(reportNotifierProvider.notifier)
+                        .submitReport(
+                          reportRepo: reportRepo,
+                          storageService: storageServices,
+                        );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Report submitted successfully!"),
+                      ),
+                    );
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Submission failed: $e")),
+                    );
+                  }
+                },
+          buttonLabel: report.isLoading
+              ? const CircularProgressIndicator(color: Colors.white)
+              : Text(
+                  'Submit Report',
+                  style: TextStyle(
+                    fontSize: ResponsiveService.fs(0.040),
+                    fontWeight: FontWeight.w500,
+                    color: ColorConstants.whiteColor,
+                  ),
+                ),
           buttonIcon: Icons.keyboard_arrow_right_rounded,
         ),
       ),

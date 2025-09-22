@@ -1,21 +1,60 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
+import 'package:civic_reporter/App/Core/widgets/primary_button_widget.dart';
+import 'package:civic_reporter/App/controllers/app_controllers.dart';
 import 'package:civic_reporter/App/presentation/IssueReportingPage/widgets/photo_evidence_widget.dart';
 import 'package:civic_reporter/App/presentation/IssueReportingPage/widgets/urgency_button_widget.dart';
-import 'package:civic_reporter/App/providers/selected_catrgory_product_provider.dart';
+import 'package:civic_reporter/App/providers/report_notifier.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
-class SubmitReportForm extends StatefulWidget {
+class SubmitReportForm extends ConsumerStatefulWidget {
   const SubmitReportForm({super.key});
 
   @override
-  State<SubmitReportForm> createState() => _SubmitReportFormState();
+  ConsumerState<SubmitReportForm> createState() => _SubmitReportFormState();
 }
 
-class _SubmitReportFormState extends State<SubmitReportForm> {
+class _SubmitReportFormState extends ConsumerState<SubmitReportForm> {
+  final AppControllers appControllers = AppControllers();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+
+  Position? currentPosition;
+  String? currentAddress;
+
+  void getCurrentPostion() async {
+    try {
+      Position position = await appControllers.determinePosition();
+      List<Placemark> placemark = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      Placemark place = placemark[0];
+
+      String address =
+          "${place.street}, ${place.locality}, ${place.postalCode}, ${place.country}";
+
+      final GeoPoint locationPoint = GeoPoint(
+        position.latitude,
+        position.longitude,
+      );
+
+      ref.read(reportNotifierProvider.notifier).updatelocation(locationPoint);
+      locationController.text = address;
+
+      // setState(() {
+      //   currentPosition = position;
+      //   currentAddress = address;
+      // });
+    } catch (e) {
+      print("error getting the location");
+    }
+  }
 
   String? selectedCategory;
   String urgency = "Low";
@@ -32,6 +71,7 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
 
   @override
   Widget build(BuildContext context) {
+    final report = ref.watch(reportNotifierProvider);
     ResponsiveService.init(context);
 
     return SingleChildScrollView(
@@ -49,7 +89,7 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
 
           SizedBox(height: ResponsiveService.h(0.01)),
 
-        //*Calling the widget
+          //*Calling the widget
           PhotoEvidenceWidget(),
 
           SizedBox(height: ResponsiveService.h(0.04)),
@@ -68,7 +108,7 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
           Consumer(
             builder: (context, ref, child) {
               return DropdownButtonFormField<String>(
-                value: selectedCategory,
+                value: report.category.isEmpty ? null : report.category,
 
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -82,9 +122,9 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
                     .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                     .toList(),
                 onChanged: (val) {
-                  ref.read(selectedCategoryProvider.notifier).update((state) {
-                    return val ?? '';
-                  });
+                  ref
+                      .read(reportNotifierProvider.notifier)
+                      .updateCategory((val ?? ''));
                 },
               );
             },
@@ -112,6 +152,11 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
+            onChanged: (value) {
+              ref
+                  .read(reportNotifierProvider.notifier)
+                  .updateDescription(value);
+            },
           ),
 
           SizedBox(height: ResponsiveService.h(0.045)),
@@ -130,16 +175,14 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
           Row(
             children: [
               Expanded(
-                child: TextField(
-                  controller: locationController,
-                  decoration: InputDecoration(
-                    hintText: "Enter address or intersection",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                child: PrimaryButtonWidget(
+                  buttonOnPress: () {},
+                  buttonLabel: report.location != null
+                      ? locationController.text
+                      : "Enter address or intersection",
                 ),
               ),
+
               SizedBox(width: ResponsiveService.h(0.01)),
 
               Ink(
@@ -151,9 +194,12 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
                 ),
                 child: IconButton(
                   tooltip: "Add Current Location",
-                  icon: const Icon(Icons.location_on),
+                  icon: const Icon(
+                    Icons.location_on,
+                    color: ColorConstants.whiteColor,
+                  ),
                   onPressed: () {
-                    // TODO: get current location
+                    getCurrentPostion();
                   },
                 ),
               ),
@@ -167,7 +213,7 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
             "Urgency Level",
             style: TextStyle(
               fontSize: ResponsiveService.fs(0.045),
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w500,
             ),
           ),
 

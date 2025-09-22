@@ -1,6 +1,8 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/Constants/string_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
+import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
+import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/primary_button_widget.dart';
 import 'package:civic_reporter/App/Core/widgets/secondary_button_widget.dart';
 import 'package:civic_reporter/App/presentation/IssueReportingPage/Screens/issue_reporting_screen.dart';
@@ -21,6 +23,8 @@ class _HomePageState extends State<HomePage> {
     ResponsiveService.init(context);
 
     return Scaffold(
+      appBar: AppbarWidget('CivicReporter', Icons.menu, false, () {}),
+      bottomNavigationBar: BottomNavBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(ResponsiveService.w(0.025)),
