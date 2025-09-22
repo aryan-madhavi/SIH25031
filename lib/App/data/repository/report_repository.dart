@@ -40,4 +40,4 @@ class ReportRepository {
   }
 }
 
-final reportRepositoryProvider = Provider((ref) => ReportRepository());
+final reportRepositoryProvider = Provider.autoDispose((ref) => ReportRepository());
