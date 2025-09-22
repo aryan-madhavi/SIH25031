@@ -1,4 +1,4 @@
-import 'package:civic_reporter/Web/Core/Constants/contants.dart';
+import 'package:civic_reporter/Web/Core/Constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class MetricCard extends StatelessWidget {
@@ -79,20 +79,20 @@ class DashboardMetricGridCard extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: Constantsofdashboard.titles.length,
+      itemCount: ConstantsOfDashboardGridMetric.titles.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: _getCrossAxisCount(Constantsofdashboard.titles.length),
+        crossAxisCount: _getCrossAxisCount(ConstantsOfDashboardGridMetric.titles.length),
         childAspectRatio: 2.5,
         mainAxisSpacing: 24,
         crossAxisSpacing: 24,
       ),
       itemBuilder: (context, index) {
         return MetricCard(
-          title: Constantsofdashboard.titles[index],
-          value: Constantsofdashboard.values[index],
-          comparison: Constantsofdashboard.comparisons[index],
-          icon: Constantsofdashboard.icons[index],
-          color: Constantsofdashboard.colors[index],
+          title: ConstantsOfDashboardGridMetric.titles[index],
+          value: ConstantsOfDashboardGridMetric.values[index],
+          comparison: ConstantsOfDashboardGridMetric.comparisons[index],
+          icon: ConstantsOfDashboardGridMetric.icons[index],
+          color: ConstantsOfDashboardGridMetric.colors[index],
         );
       },
     );

@@ -1,6 +1,6 @@
 import 'package:civic_reporter/App/Core/Constants/string_constants.dart';
 import 'package:civic_reporter/App/Core/Theme/riverpod/theme_provider.dart';
-import 'package:civic_reporter/Web/Core/Constants/contants.dart';
+import 'package:civic_reporter/Web/Core/Constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,11 +12,11 @@ class SideBar extends ConsumerStatefulWidget {
 }
 
 class _SideBarState extends ConsumerState<SideBar> {
-  int _pageno = 0;
   bool _isExpanded = true;
 
   @override
   Widget build(BuildContext context) {
+    final pageIndex = ref.watch(ConstantsofSideBar.pageIndexProvider);
     final currentTheme = ref.watch(themeProvider);
     final theme = Theme.of(context);
 
@@ -42,7 +42,7 @@ class _SideBarState extends ConsumerState<SideBar> {
                 child: ListView.builder(
                   itemCount: ConstantsofSideBar.labels.length,
                   itemBuilder: (context, index) {
-                    final isSelected = _pageno == index;
+                    final isSelected = pageIndex == index;
                     // final isSelected = ConstantsofSideBar.pages == index;
                     return _buildSidebarItem(
                       iconData: ConstantsofSideBar.icons[index],
@@ -50,7 +50,7 @@ class _SideBarState extends ConsumerState<SideBar> {
                       isSelected: isSelected,
                       onTap: () {
                         setState(() {
-                          _pageno = index;
+                          ref.read(ConstantsofSideBar.pageIndexProvider.notifier).state = index;
                           // ConstantsofSideBar.pageno = index;
                         });
                       },
@@ -80,7 +80,7 @@ class _SideBarState extends ConsumerState<SideBar> {
             ],
           ),
         ),
-        Expanded(child: ConstantsofSideBar.pages[_pageno]),
+        Expanded(child: ConstantsofSideBar.pages[pageIndex]),
         // Expanded(child: ConstantsofSideBar.pages[ConstantsofSideBar.pageno]),
       ],
     );
