@@ -1,7 +1,6 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:civic_reporter/App/Core/widgets/appbar_widget.dart';
-import 'package:civic_reporter/App/Core/widgets/bottom_nav_bar_widget.dart';
 import 'package:civic_reporter/App/presentation/UserProfile/widgets/logout_button_widget.dart';
 import 'package:civic_reporter/App/presentation/UserProfile/widgets/profile_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +15,6 @@ class UserProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppbarWidget('Profile', Icons.menu, true, () {}),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(ResponsiveService.w(0.037)),

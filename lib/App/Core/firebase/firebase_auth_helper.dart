@@ -21,7 +21,6 @@ class FirebaseAuthHelper {
         return 'The provided email address is invalid.';
       case 'invalid-password':
         return 'The provided email address is invalid.';
-
       case 'invalid-verification-code':
         return 'The provided Verfication code is invalid';
       case 'nvalid-verification-id':
@@ -30,7 +29,6 @@ class FirebaseAuthHelper {
         return 'The provided Phone Number is invalid';
       case 'phone-number-already-exists':
         return 'The provided Phone Number is invalid';
-
       default:
         return 'Unexpected Error ${e.message}';
     }

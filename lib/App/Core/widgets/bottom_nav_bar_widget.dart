@@ -56,38 +56,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: _labels[index],
           );
         }),
-
-        // destinations: const <Widget>[
-        //   // Home
-        //   NavigationDestination(
-        //     icon: _icon,
-        //     label: "Home",
-        //     ),
-
-        //   // Issue Report
-        //   NavigationDestination(
-        //     icon: Icon(Icons.report),
-        //     label: "Report",
-        //   ),
-
-        //   // Track Your Report
-        //   NavigationDestination(
-        //     icon: Icon(Icons.menu_book_sharp),
-        //     label: "Tack",
-        //   ),
-
-        //   // Report History
-        //   NavigationDestination(
-        //     icon: Icon(Icons.history),
-        //     label: "History",
-        //   ),
-
-        //   // User Profile
-        //   NavigationDestination(
-        //     icon: Icon(Icons.person),
-        //     label: "Profile",
-        //   ),
-        // ],
       ),
     );
   }

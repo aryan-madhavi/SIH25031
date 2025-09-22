@@ -7,7 +7,6 @@ import 'package:civic_reporter/App/presentation/auth/widgets/password_text_field
 import 'package:civic_reporter/App/presentation/auth/widgets/signin_widget.dart';
 import 'package:civic_reporter/App/presentation/auth/widgets/text_field_widget.dart';
 import 'package:civic_reporter/App/providers/auth_provider.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

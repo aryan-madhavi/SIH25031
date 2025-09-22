@@ -1,7 +1,6 @@
 import 'package:civic_reporter/App/Core/Constants/color_constants.dart';
 import 'package:civic_reporter/App/Core/services/responsive_service.dart';
 import 'package:civic_reporter/App/providers/report_notifier.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

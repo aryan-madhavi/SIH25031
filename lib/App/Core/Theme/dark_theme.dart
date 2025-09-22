@@ -5,7 +5,6 @@ ThemeData darkThemeData = ThemeData(
   fontFamily: 'Poppins',
   brightness: Brightness.dark,
   primaryColor: ColorConstants.primaryDarkBackgroundColor,
-
   useMaterial3: true,
   inputDecorationTheme: InputDecorationTheme(
     fillColor: ColorConstants.darkInputFillColor,
