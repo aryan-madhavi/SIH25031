@@ -1,12 +1,21 @@
 import 'package:civic_reporter/Web/Core/Constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class RecentReportsCard extends ConsumerWidget {
   const RecentReportsCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final allReports = ref.watch(reportsProvider);
+
+    final sortedReports = List<Report>.from(allReports)
+      ..sort((a, b) => b.lastUpdated.compareTo(a.lastUpdated));
+
+    final recentReports = sortedReports.take(3).toList();
+
     final theme = Theme.of(context);
     return Card(
       child: Padding(
@@ -20,7 +29,7 @@ class RecentReportsCard extends ConsumerWidget {
                 Text("Recent Issues", style: theme.textTheme.titleLarge),
                 TextButton(
                   onPressed: () {
-                    ref.read(ConstantsofSideBar.pageIndexProvider.notifier).state = 1;
+                    ref.read(pageIndexProvider.notifier).state = 1;
                   },
                   child: const Text("View All"),
                 ),
@@ -30,17 +39,18 @@ class RecentReportsCard extends ConsumerWidget {
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: ConstantsOfDashboardReportIssue.ids.length,
+              itemCount: recentReports.length,
               separatorBuilder: (context, index) => const Divider(height: 24),
               itemBuilder: (context, index) {
+                final report = recentReports[index];
                 return _ReportListItem(
-                  id: ConstantsOfDashboardReportIssue.ids[index],
-                  priority: ConstantsOfDashboardReportIssue.priorities[index],
-                  title: ConstantsOfDashboardReportIssue.titles[index],
-                  location: ConstantsOfDashboardReportIssue.locations[index],
-                  department: ConstantsOfDashboardReportIssue.departments[index],
-                  timeAgo: ConstantsOfDashboardReportIssue.timesAgo[index],
-                  status: ConstantsOfDashboardReportIssue.statuses[index],
+                  id: report.id,
+                  priority: report.priority,
+                  title: report.category,
+                  location: report.location,
+                  department: report.department,
+                  timeAgo: "Updated: ${DateFormat.yMd().add_jm().format(report.lastUpdated)}",
+                  status: report.status,
                 );
               },
             ),
@@ -50,6 +60,7 @@ class RecentReportsCard extends ConsumerWidget {
     );
   }
 }
+
 
 class _ReportListItem extends StatelessWidget {
   final String id;
@@ -90,8 +101,8 @@ class _ReportListItem extends StatelessWidget {
                 const SizedBox(width: 8),
                 _IssueTag(
                   text: priority.name,
-                  backgroundColor: _getPriorityColor(priority),
-                  textColor: _getPriorityTextColor(priority),
+                  backgroundColor: _getPriorityColor(priority, theme),
+                  textColor: _getPriorityTextColor(priority, theme),
                 ),
               ],
             ),
@@ -128,44 +139,28 @@ class _ReportListItem extends StatelessWidget {
     );
   }
 
-  Color _getPriorityColor(Priority priority) {
+  Color _getPriorityColor(Priority priority, ThemeData theme) {
     switch (priority) {
-      case Priority.High:
-        return Colors.red;
-      case Priority.Medium:
-        return Colors.orange;
-      case Priority.Low:
-        return Colors.blue;
-      default:
-        return Colors.grey.shade200;
+      case Priority.High: return Colors.red.shade100;
+      case Priority.Medium: return Colors.orange.shade100;
+      case Priority.Low: return Colors.blue.shade100;
     }
   }
 
-  Color _getPriorityTextColor(Priority priority) {
+  Color _getPriorityTextColor(Priority priority, ThemeData theme) {
     switch (priority) {
-      case Priority.High:
-        return Colors.white;
-      case Priority.Medium:
-        return Colors.white;
-      case Priority.Low:
-        return Colors.white;
-      default:
-        return Colors.black;
+      case Priority.High: return Colors.red.shade800;
+      case Priority.Medium: return Colors.orange.shade800;
+      case Priority.Low: return Colors.blue.shade800;
     }
   }
 
   String _getStatusText(Status status) {
     switch (status) {
-      case Status.New:
-        return 'New';
-      case Status.Assigned:
-        return 'Assigned';
-      case Status.InProgress:
-        return 'In Progress';
-      case Status.Resolved:
-        return 'Resolved';
-      default:
-        return 'Unknown';
+      case Status.New: return 'New';
+      case Status.Assigned: return 'Assigned';
+      case Status.InProgress: return 'In Progress';
+      case Status.Resolved: return 'Resolved';
     }
   }
 }

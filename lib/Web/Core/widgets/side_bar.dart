@@ -16,7 +16,7 @@ class _SideBarState extends ConsumerState<SideBar> {
 
   @override
   Widget build(BuildContext context) {
-    final pageIndex = ref.watch(ConstantsofSideBar.pageIndexProvider);
+    final pageIndex = ref.watch(pageIndexProvider);
     final currentTheme = ref.watch(themeProvider);
     final theme = Theme.of(context);
 
@@ -43,15 +43,13 @@ class _SideBarState extends ConsumerState<SideBar> {
                   itemCount: ConstantsofSideBar.labels.length,
                   itemBuilder: (context, index) {
                     final isSelected = pageIndex == index;
-                    // final isSelected = ConstantsofSideBar.pages == index;
                     return _buildSidebarItem(
                       iconData: ConstantsofSideBar.icons[index],
                       label: ConstantsofSideBar.labels[index],
                       isSelected: isSelected,
                       onTap: () {
                         setState(() {
-                          ref.read(ConstantsofSideBar.pageIndexProvider.notifier).state = index;
-                          // ConstantsofSideBar.pageno = index;
+                          ref.read(pageIndexProvider.notifier).state = index;
                         });
                       },
                     );
@@ -81,7 +79,6 @@ class _SideBarState extends ConsumerState<SideBar> {
           ),
         ),
         Expanded(child: ConstantsofSideBar.pages[pageIndex]),
-        // Expanded(child: ConstantsofSideBar.pages[ConstantsofSideBar.pageno]),
       ],
     );
   }

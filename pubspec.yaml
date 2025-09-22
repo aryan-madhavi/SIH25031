@@ -33,6 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.0.0
+  intl: ^0.20.2
   syncfusion_flutter_charts: ^28.1.38
 
 dev_dependencies:

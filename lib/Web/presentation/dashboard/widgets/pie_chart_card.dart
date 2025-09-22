@@ -1,28 +1,24 @@
 import 'package:civic_reporter/Web/Core/Constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class PieChartCard extends StatefulWidget {
+class PieChartCard extends ConsumerWidget {
   const PieChartCard({super.key});
 
   @override
-  State<PieChartCard> createState() => _PieChartCardState();
-}
-
-class _PieChartCardState extends State<PieChartCard> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Card(
-      margin: EdgeInsets.all(30),
+      margin: const EdgeInsets.all(30),
       elevation: 5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(10),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
+          const Padding(
+            padding: EdgeInsets.all(20),
             child: Text(
               "Total Number Of Report Per Department",
               style: TextStyle(
@@ -31,9 +27,9 @@ class _PieChartCardState extends State<PieChartCard> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsGeometry.all(10),
+            padding: const EdgeInsets.all(10),
             child: SfCircularChart(
-              legend: Legend(
+              legend: const Legend(
                 isVisible: true,
                 overflowMode: LegendItemOverflowMode.wrap,
               ),
@@ -42,7 +38,7 @@ class _PieChartCardState extends State<PieChartCard> {
                   dataSource: ConstantsOfDashboardPieChart.chartdata,
                   xValueMapper: (ChartData data, _) => data.category,
                   yValueMapper: (ChartData data, _) => data.value,
-                  dataLabelMapper: (ChartData data, _) => '${data.value}',
+                  dataLabelMapper: (ChartData data, _) => '${data.value.toInt()}',
                   dataLabelSettings: const DataLabelSettings(isVisible: true),
                   explode: true,
                   explodeIndex: 0,
