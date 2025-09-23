@@ -60,55 +60,6 @@ final pageIndexProvider = StateProvider<int>((ref) => 0);
 
 final stackedChartChoiceProvider = StateProvider<String>((ref) => "Yearly");
 
-final reportsProvider = StateNotifierProvider<ReportsNotifier, List<Report>>(
-  (ref) => ReportsNotifier(),
-);
-
-class ReportsNotifier extends StateNotifier<List<Report>> {
-  ReportsNotifier() : super(ConstantsOfReports.initialReports);
-
-  void assignReport(String reportId, User user) {
-    state = [
-      for (final report in state)
-        if (report.id == reportId)
-          report.copyWith(
-            status: Status.Assigned,
-            assignedTo: user,
-            lastUpdated: DateTime.now(),
-          )
-        else
-          report,
-    ];
-  }
-
-  void startProgress(String reportId) {
-    state = [
-      for (final report in state)
-        if (report.id == reportId)
-          report.copyWith(
-            status: Status.InProgress,
-            lastUpdated: DateTime.now(),
-          )
-        else
-          report,
-    ];
-  }
-
-  void resolveReport(String reportId) {
-    state = [
-      for (final report in state)
-        if (report.id == reportId)
-          report.copyWith(
-            status: Status.Resolved,
-            lastUpdated: DateTime.now(),
-          )
-        else
-          report,
-    ];
-  }
-}
-
-
 class ConstantsofSideBar {
   static final List<String> labels = ["Dashboard", "Reports", "People", "Logs", "Administration"];
   static final List<IconData> icons = [Icons.dashboard, Icons.report_sharp, Icons.group, Icons.login, Icons.admin_panel_settings];
@@ -126,15 +77,7 @@ class ConstantsOfDashboardGridMetric {
 
 class ConstantsOfReports {
   static const User sampleUser = User(id: 'user-01', name: 'Suresh Sharma', department: 'PWD');
-  static final List<Report> initialReports = [
-    Report(id: 'CC-2024-1001', category: 'Pothole', location: 'MG Road', citizenName: 'Rajesh Kumar', citizenPhone: '+91 9876543210', priority: Priority.High, status: Status.Assigned, department: 'Roads & Traffic', assignedTo: sampleUser, submittedDate: DateTime(2025, 9, 22, 9, 30), lastUpdated: DateTime(2025, 9, 22, 10, 0)),
-    Report(id: 'CC-2024-1002', category: 'Fallen Tree', location: 'Park Avenue', citizenName: 'Priya Patel', citizenPhone: '+91 8765432109', priority: Priority.Medium, status: Status.InProgress, department: 'Garden & Trees', assignedTo: const User(id: 'user-02', name: 'Amit Singh', department: 'Garden & Trees'), submittedDate: DateTime(2025, 9, 22, 8, 45), lastUpdated: DateTime(2025, 9, 22, 11, 15)),
-    Report(id: 'CC-2024-1003', category: 'Leaky Pipe', location: 'Housing Colony A', citizenName: 'Mohammad Ali', citizenPhone: '+91 7654321098', priority: Priority.High, status: Status.New, department: 'Water Supply', assignedTo: null, submittedDate: DateTime(2025, 9, 21, 7, 20), lastUpdated: DateTime(2025, 9, 21, 13, 5)),
-    Report(id: 'CC-2024-1004', category: 'Clogged Drain', location: 'Market Square', citizenName: 'Sunita Devi', citizenPhone: '+91 6543210987', priority: Priority.Medium, status: Status.Resolved, department: 'Drainage', assignedTo: const User(id: 'user-03', name: 'Ravi Kumar', department: 'Drainage'), submittedDate: DateTime(2025, 9, 20, 16, 30), lastUpdated: DateTime(2025, 9, 20, 18, 0)),
-    Report(id: 'CC-2024-1005', category: 'Building Debris', location: 'Sector 5', citizenName: 'Karan Verma', citizenPhone: '+91 5432109876', priority: Priority.Low, status: Status.Resolved, department: 'SWM', assignedTo: const User(id: 'user-04', name: 'Pooja Hegde', department: 'SWM'), submittedDate: DateTime(2025, 9, 19, 11, 0), lastUpdated: DateTime(2025, 9, 20, 15, 0)),
-    Report(id: 'CC-2024-1006', category: 'Water Logging', location: 'Highway Entry', citizenName: 'Anjali Sharma', citizenPhone: '+91 4321098765', priority: Priority.High, status: Status.InProgress, department: 'Storm Water Drainage', assignedTo: sampleUser, submittedDate: DateTime(2025, 9, 22, 14, 0), lastUpdated: DateTime(2025, 9, 22, 14, 30)),
-    Report(id: 'CC-2024-1007', category: 'Broken Streetlight', location: 'Ward 12 Office', citizenName: 'Vikram Singh', citizenPhone: '+91 3210987654', priority: Priority.Medium, status: Status.New, department: 'Ward Offices', assignedTo: null, submittedDate: DateTime(2025, 9, 22, 18, 0), lastUpdated: DateTime(2025, 9, 22, 18, 0)),
-  ];
+  static final List<Report> initialReports = const [];
 }
 
 class ConstantsOfDashboardStackedColumnChart {
