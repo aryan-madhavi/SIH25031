@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 ThemeData darkThemeData = ThemeData(
   fontFamily: 'Poppins',
   brightness: Brightness.dark,
-  primaryColor: ColorConstants.primaryDarkBackgroundColor,
+  primaryColor: Colors.lightBlueAccent[100],
   useMaterial3: true,
   inputDecorationTheme: InputDecorationTheme(
     fillColor: ColorConstants.darkInputFillColor,

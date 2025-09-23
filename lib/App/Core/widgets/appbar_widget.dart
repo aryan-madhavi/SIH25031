@@ -75,10 +75,10 @@ class AppbarWidget extends ConsumerWidget implements PreferredSizeWidget {
           //*
 
           //* Menu Switch:
-          IconButton(
-            onPressed: () {},
-            icon: Icon(actionButton2, size: ResponsiveService.w(0.058)),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(actionButton2, size: ResponsiveService.w(0.058)),
+          // ),
         ],
       ),
     );

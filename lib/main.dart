@@ -32,8 +32,7 @@ class MyApp extends StatelessWidget {
           theme: lightThemeData,
           darkTheme: darkThemeData,
           debugShowCheckedModeBanner: false,
-          //home: const RootScaffold(),
-          home: LoginPage(),
+          home: kIsWeb? const RootScaffold(): const LoginPage(),
           themeMode: themeMode,
           routes: AppRoutes.routes,
         );
