@@ -19,4 +19,14 @@ ThemeData darkThemeData = ThemeData(
     indicatorColor: ColorConstants.darkInputFillColor,
   ),
   splashColor: ColorConstants.darkSplashColor,
+  
+  cardColor: const Color(0xFF2D2D2D),
+  textTheme: const TextTheme(
+    bodyMedium: TextStyle(color: Colors.white70), 
+    bodySmall: TextStyle(color: Colors.white54),  
+    titleLarge: TextStyle(color: Colors.white),   
+  ),
+  iconTheme: const IconThemeData(
+    color: Colors.white70 
+  ),
 );
