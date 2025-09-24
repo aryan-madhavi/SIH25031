@@ -33,8 +33,24 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _pages = [
     HomePage(),
     // IssueReportingScreen(),
-    TrackYourReportPage(),
-    ReportHistoryPage(),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text("Coming Soon ......", style: TextStyle(fontSize: 20))]
+        ),
+      ],
+    ), //TrackYourReportPage(),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text("Coming Soon ......", style: TextStyle(fontSize: 20))]
+        ),
+      ],
+    ), //ReportHistoryPage(),
     UserProfilePage(),
   ];
 

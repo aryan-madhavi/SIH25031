@@ -63,7 +63,24 @@ final stackedChartChoiceProvider = StateProvider<String>((ref) => "Yearly");
 class ConstantsofSideBar {
   static final List<String> labels = ["Dashboard", "Reports", "People", "Logs", "Administration"];
   static final List<IconData> icons = [Icons.dashboard, Icons.report_sharp, Icons.group, Icons.login, Icons.admin_panel_settings];
-  static final List<Widget> pages = [DashboardPage(), ReportsPage(), PeoplePage(), AuditLogsPage(), AdministrationPage()];
+  //static final List<Widget> pages = [DashboardPage(), ReportsPage(), PeoplePage(), AuditLogsPage(), AdministrationPage()];
+  static final List<Widget> pages = [DashboardPage(), ReportsPage(), Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text("Coming Soon ......", style: TextStyle(fontSize: 20,),),
+      ],
+    ), Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Coming Soon ......", style: TextStyle(fontSize: 20,),),
+      ],
+    ), Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Coming Soon ......", style: TextStyle(fontSize: 20,),),
+      ],
+    )];
   static final Shader linearGradient = LinearGradient(colors: <Color>[ColorConstants.primaryColorLight, ColorConstants.primaryColorDark]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 }
 
