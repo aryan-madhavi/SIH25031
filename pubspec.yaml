@@ -43,6 +43,7 @@ dependencies:
   http: ^1.5.0 
   image_picker: ^1.2.0 
   intl: ^0.20.2
+  url_launcher: ^6.1.7
   permission_handler: 
   shared_preferences: ^2.5.3 
   syncfusion_flutter_charts: ^31.1.21

@@ -48,7 +48,7 @@ class RecentReportsCard extends ConsumerWidget {
                   separatorBuilder: (context, index) => const Divider(height: 24),
                   itemBuilder: (context, index) {
                     final data = docs[index].data() as Map<String, dynamic>;
-                    final id = data['reportId'] ?? docs[index].id;
+                    final id = data['reportId'] ?? docs[index];
                     final title = data['category'] ?? '';
                     final rawLocation = data['location'];
                     String location;
@@ -73,14 +73,16 @@ class RecentReportsCard extends ConsumerWidget {
                     final urgency = (data['urgency'] ?? 'Low') as String;
 
                     Priority priority = Priority.Low;
-                    if (urgency.toLowerCase().contains('high')) priority = Priority.High;
-                    else if (urgency.toLowerCase().contains('medium')) priority = Priority.Medium;
+                    if (urgency.toLowerCase().contains('high')) {
+                      priority = Priority.High;
+                    } else if (urgency.toLowerCase().contains('medium')) priority = Priority.Medium;
 
                     final uid = (data['userId'] ?? '').toString();
                     final statusStr = (data['status'] ?? 'New') as String;
                     Status status = Status.New;
-                    if (statusStr.toLowerCase().contains('assigned')) status = Status.Assigned;
-                    else if (statusStr.toLowerCase().contains('inprogress') || statusStr.toLowerCase().contains('in progress')) status = Status.InProgress;
+                    if (statusStr.toLowerCase().contains('assigned')) {
+                      status = Status.Assigned;
+                    } else if (statusStr.toLowerCase().contains('inprogress') || statusStr.toLowerCase().contains('in progress')) status = Status.InProgress;
                     else if (statusStr.toLowerCase().contains('resolved') || statusStr.toLowerCase().contains('successful')) status = Status.Resolved;
                     return FutureBuilder<DocumentSnapshot?>(
                       future: uid.isNotEmpty ? FirebaseFirestore.instance.collection('users').doc(uid).get() : Future<DocumentSnapshot?>.value(null),

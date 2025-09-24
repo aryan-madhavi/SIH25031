@@ -6,7 +6,7 @@ class ProfileWidget extends StatelessWidget {
   final String? user_name;
   final String? Phone_number;
 
-  ProfileWidget({this.Phone_number, this.user_name, super.key});
+  const ProfileWidget({this.Phone_number, this.user_name, super.key});
 
   @override
   Widget build(BuildContext context) {

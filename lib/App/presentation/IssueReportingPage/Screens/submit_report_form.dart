@@ -108,7 +108,7 @@ class _SubmitReportFormState extends ConsumerState<SubmitReportForm> {
           Consumer(
             builder: (context, ref, child) {
               return DropdownButtonFormField<String>(
-                value: report.category.isEmpty ? null : report.category,
+                initialValue: report.category.isEmpty ? null : report.category,
 
                 decoration: InputDecoration(
                   border: OutlineInputBorder(

@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fb_storage;
-import 'dart:html' as html;
+import 'package:flutter/foundation.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:civic_reporter/Web/Core/Constants/constants.dart';
 class ReportsPage extends ConsumerStatefulWidget {
   const ReportsPage({super.key});
@@ -147,13 +148,15 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
                           }
                           final mediaUrl = (data['mediaUrl'] ?? data['imageUrl'] ?? data['image'] ?? '') as String;
                           Priority priority = Priority.Low;
-                          if (priorityStr.toLowerCase().contains('high')) priority = Priority.High;
-                          else if (priorityStr.toLowerCase().contains('medium')) priority = Priority.Medium;
+                          if (priorityStr.toLowerCase().contains('high')) {
+                            priority = Priority.High;
+                          } else if (priorityStr.toLowerCase().contains('medium')) priority = Priority.Medium;
 
                           Status status = Status.New;
                           final sLower = statusStr.toLowerCase();
-                          if (sLower.contains('assigned')) status = Status.Assigned;
-                          else if (sLower.contains('inprogress') || sLower.contains('in progress')) status = Status.InProgress;
+                          if (sLower.contains('assigned')) {
+                            status = Status.Assigned;
+                          } else if (sLower.contains('inprogress') || sLower.contains('in progress')) status = Status.InProgress;
                           else if (sLower.contains('resolved') || sLower.contains('successful') || sLower.contains('done')) status = Status.Resolved;
                           return DataRow(
                             onSelectChanged: (_) => _showFirestoreReportDialog(context, data, location),
@@ -251,12 +254,7 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
                           TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Close')),
                           const SizedBox(width: 12),
                           TextButton(
-                            onPressed: () {
-                              try {
-                                html.window.open(url, '_blank');
-                              } catch (_) {
-                              }
-                            },
+                            onPressed: () => _openUrl(url),
                             child: const Text('Open in new tab'),
                           ),
                         ],
@@ -312,6 +310,26 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
       }
     } catch (e) {
       return null;
+    }
+  }
+
+  Future<void> _openUrl(String url) async {
+    try {
+      final uri = Uri.parse(url);
+      // On web, prefer opening a new tab if possible
+      if (kIsWeb) {
+        // url_launcher on web will open in a new tab when using launchUrl with webOnlyWindowName
+        await launchUrl(uri, webOnlyWindowName: '_blank');
+        return;
+      }
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } else {
+        // last resort: try to launch anyway
+        await launchUrl(uri);
+      }
+    } catch (e) {
+      // ignore errors silently
     }
   }
 
